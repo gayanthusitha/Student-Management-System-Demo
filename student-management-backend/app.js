@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const adminRoutes = require('./routes/adminRoutes');
 const studentRoutes = require('./routes/studentRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 // Routes
 app.use('/admin', adminRoutes);
 app.use('/students', studentRoutes);
+app.use('/payments', paymentRoutes); 
 
 
 const PORT = process.env.PORT || 5000;
