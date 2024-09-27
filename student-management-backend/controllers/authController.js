@@ -84,7 +84,7 @@ searchAdmins: (req, res) => {
       if (admins.length === 0) return res.status(404).send('No admins found');
       res.status(200).json(admins);
   });
-},
+}
 };
 
 module.exports = authController;

@@ -57,7 +57,7 @@ const studentController = {
       if (students.length === 0) return res.status(404).send('No students found');
       res.status(200).json(students);
     });
-  },
+  }
 
 };
 
