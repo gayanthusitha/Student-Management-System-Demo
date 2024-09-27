@@ -17,7 +17,25 @@ const Payment = {
   update: (id, data, callback) => {
     const query = `UPDATE Payments SET month = ?, price = ?, status = ? WHERE id = ?`;
     db.query(query, [data.month, data.price, data.status, id], callback);
-  }
+  },
+
+    // Search Payments
+    search: (queryParams, callback) => {
+      const { registration_number, status } = queryParams;
+      let query = `SELECT * FROM Payments WHERE 1=1`;
+      const values = [];
+  
+      if (registration_number) {
+        query += ` AND registration_number = ?`;
+        values.push(registration_number);
+      }
+      if (status) {
+        query += ` AND status = ?`;
+        values.push(status);
+      }
+  
+      db.query(query, values, callback);
+    }
 };
 
 module.exports = Payment;

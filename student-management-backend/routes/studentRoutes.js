@@ -18,5 +18,8 @@ router.put('/:id', authMiddleware.verifyToken, authMiddleware.isAdminOrSuperAdmi
 // Delete Student (Super Admin Only)
 router.delete('/:id', authMiddleware.verifyToken, authMiddleware.isSuperAdmin, studentController.deleteStudent);
 
+// Search Students (Admin and Super Admin)
+router.get('/search/s', authMiddleware.verifyToken, authMiddleware.isAdminOrSuperAdmin, studentController.searchStudents);
+
 module.exports = router;
 

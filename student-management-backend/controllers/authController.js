@@ -74,7 +74,17 @@ const authController = {
       if (err) return res.status(500).send('Error deleting admin');
       res.status(200).send('Admin deleted successfully');
     });
-  }
+  },
+
+  // Search Admins
+searchAdmins: (req, res) => {
+  const queryParams = req.query; // Get query parameters from the request
+  Admin.search(queryParams, (err, admins) => {
+      if (err) return res.status(500).send('Error searching for admins');
+      if (admins.length === 0) return res.status(404).send('No admins found');
+      res.status(200).json(admins);
+  });
+},
 };
 
 module.exports = authController;

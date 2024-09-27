@@ -12,4 +12,7 @@ router.get('/', authMiddleware.verifyToken, authMiddleware.isAdminOrSuperAdmin, 
 // Update Payment (Admin and Super Admin)
 router.put('/:id', authMiddleware.verifyToken, authMiddleware.isAdminOrSuperAdmin, paymentController.updatePayment);
 
+// Search Payments (Admin and Super Admin)
+router.get('/search/s', authMiddleware.verifyToken, authMiddleware.isAdminOrSuperAdmin, paymentController.searchPayments);
+
 module.exports = router;
