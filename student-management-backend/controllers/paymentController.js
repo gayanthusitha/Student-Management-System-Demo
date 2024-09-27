@@ -26,7 +26,16 @@ const paymentController = {
       if (err) return res.status(500).send('Error updating payment');
       res.status(200).send('Payment updated successfully');
     });
-  }
+  },
+
+    // Search Payments
+    searchPayments: (req, res) => {
+      const { registration_number, status } = req.query;
+      Payment.search({ registration_number, status }, (err, payments) => {
+        if (err) return res.status(500).send('Error searching payments');
+        res.status(200).json(payments);
+      });
+    }
 };
 
 module.exports = paymentController;

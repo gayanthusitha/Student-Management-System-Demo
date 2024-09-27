@@ -21,4 +21,7 @@ router.put('/:id', authMiddleware.verifyToken, authMiddleware.isSuperAdmin, admi
 // Delete Admin (only Super Admins can do this)
 router.delete('/:id', authMiddleware.verifyToken, authMiddleware.isSuperAdmin, adminController.deleteAdmin);
 
+// Search Admins (only Super Admins can do this)
+router.get('/search/s', authMiddleware.verifyToken, authMiddleware.isSuperAdmin, adminController.searchAdmins);
+
 module.exports = router;

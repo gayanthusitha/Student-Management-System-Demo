@@ -47,7 +47,18 @@ const studentController = {
       if (err) return res.status(500).send('Error deleting student');
       res.status(200).send('Student deleted successfully');
     });
+  },
+
+  // Search Students
+  searchStudents: (req, res) => {
+    const queryParams = req.query; // Get query parameters from the request
+    Student.search(queryParams, (err, students) => {
+      if (err) return res.status(500).send('Error searching for students');
+      if (students.length === 0) return res.status(404).send('No students found');
+      res.status(200).json(students);
+    });
   }
+
 };
 //2nd commennt
 module.exports = studentController;

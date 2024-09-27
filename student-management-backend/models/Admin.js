@@ -51,7 +51,36 @@ const Admin = {
   delete: (id, callback) => {
     const query = `DELETE FROM admins WHERE id = ?`;
     db.query(query, [id], callback);
+  },
+
+  // Search Admins
+search: (queryParams, callback) => {
+  const { full_name, email, role } = queryParams;
+  const conditions = [];
+  const values = [];
+
+  if (full_name) {
+      conditions.push('full_name LIKE ?');
+      values.push(`%${full_name}%`);
   }
+  if (email) {
+      conditions.push('email = ?');
+      values.push(email);
+  }
+  if (role) {
+      conditions.push('role = ?');
+      values.push(role);
+  }
+
+  const sqlQuery = `SELECT * FROM Admins ${conditions.length > 0 ? 'WHERE ' + conditions.join(' AND ') : ''}`;
+
+  db.query(sqlQuery, values, (err, result) => {
+      if (err) {
+          return callback(err, null);
+      }
+      return callback(null, result);
+  });
+},
 };
 
 
