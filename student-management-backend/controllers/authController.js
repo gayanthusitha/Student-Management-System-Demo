@@ -13,18 +13,22 @@ const authController = {
     });
   },
 
-  // Login Function
-  login: (req, res) => {
-    const { email, password } = req.body;
-    Admin.findByEmail(email, async (err, admin) => {
+// Login Function
+login: (req, res) => {
+  const { email, password } = req.body;
+  Admin.findByEmail(email, async (err, admin) => {
       if (err || !admin.length) return res.status(404).send('Admin not found');
       const isValid = await bcrypt.compare(password, admin[0].password);
       if (!isValid) return res.status(401).send('Invalid credentials');
 
+      // Include role in the token
       const token = jwt.sign({ id: admin[0].id, role: admin[0].role }, 'secret_key', { expiresIn: '1h' });
-      res.status(200).json({ token });
-    });
-  },
+
+      // Send back both the token and role
+      res.status(200).json({ token, role: admin[0].role });
+  });
+},
+
 
   // Get All Admins
   getAllAdmins:  (req, res) => {
